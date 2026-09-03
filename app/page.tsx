@@ -224,10 +224,13 @@ export default function Home() {
           <div className="card">
             <div className="eyebrow">Current conditions — {place.name}</div>
             <div className="current-grid">
-              <div>
-                <span className="temp-value">{Math.round(current.temperature_2m)}</span>
-                <span className="temp-unit">°C</span>
-                <div className="condition">{describeWeatherCode(current.weather_code)}</div>
+              <div className="temp-block">
+                <div className="temp-gradient-bar" />
+                <div>
+                  <span className="temp-value">{Math.round(current.temperature_2m)}</span>
+                  <span className="temp-unit">°C</span>
+                  <div className="condition">{describeWeatherCode(current.weather_code)}</div>
+                </div>
               </div>
               <div className="metrics">
                 <span className="metric">

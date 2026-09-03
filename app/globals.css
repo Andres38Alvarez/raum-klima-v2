@@ -1,16 +1,23 @@
 :root {
+  /* Palette nods to the original hardware project's dashboard (sky blue +
+     warm amber accent boxes), reinterpreted a bit more subdued for a
+     portfolio context. */
   --ink: #20262b;
-  --muted: #6b7684;
-  --faint: #a09a8c;
-  --accent: #3f8a63;
-  --accent-soft: #e8f3ec;
-  --bg: #f5f5f3;
+  --muted: #5c6b80;
+  --faint: #93a0b0;
+  --accent: #3a6ea8;
+  --accent-soft: #e3edf8;
+  --warm: #c97a2b;
+  --warm-soft: #faf1e0;
+  --bg: #eef3fa;
   --card: #ffffff;
-  --rule: #e5e0d5;
+  --rule: #dbe6f2;
   --warn: #b3542c;
   --warn-soft: #f6e8de;
   --bad: #b33c3c;
   --bad-soft: #f7e2e2;
+  --good: #3f8a63;
+  --good-soft: #e8f3ec;
 }
 
 * {
@@ -155,6 +162,20 @@ header.top .sub {
   flex-wrap: wrap;
 }
 
+.temp-block {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.temp-gradient-bar {
+  width: 8px;
+  height: 52px;
+  border-radius: 4px;
+  background: linear-gradient(to top, #3498db, #f1c40f, #e67e22, #e74c3c);
+  flex-shrink: 0;
+}
+
 .temp-value {
   font-size: 48px;
   font-weight: 700;
@@ -207,8 +228,8 @@ header.top .sub {
 }
 
 .badge.good {
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--good-soft);
+  color: var(--good);
 }
 
 .badge.moderate {
@@ -235,6 +256,7 @@ header.top .sub {
 
 .pollutant {
   border: 1px solid var(--rule);
+  background: var(--warm-soft);
   border-radius: 8px;
   padding: 10px 12px;
 }
@@ -250,7 +272,7 @@ header.top .sub {
 .pollutant .value {
   font-size: 18px;
   font-weight: 700;
-  color: var(--ink);
+  color: var(--warm);
   margin-top: 2px;
 }
 

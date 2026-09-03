@@ -51,8 +51,12 @@ export async function GET(request: Request) {
   const headers = { "X-API-Key": apiKey };
 
   try {
+    // Note: OpenAQ's `order_by` parameter only accepts "id" as a value, not
+    // "distance" -- sending order_by=distance triggers a 422 validation
+    // error. Each result already includes a `distance` field when querying
+    // by coordinates+radius, so we sort by that ourselves instead.
     const locationsRes = await fetch(
-      `${OPENAQ_BASE}/locations?coordinates=${encodeURIComponent(lat)},${encodeURIComponent(lon)}&radius=25000&limit=5&order_by=distance`,
+      `${OPENAQ_BASE}/locations?coordinates=${encodeURIComponent(lat)},${encodeURIComponent(lon)}&radius=25000&limit=5`,
       { headers, next: { revalidate: 0 } },
     );
 
@@ -64,7 +68,9 @@ export async function GET(request: Request) {
     }
 
     const locationsJson = await locationsRes.json();
-    const locations: OpenAQLocation[] = locationsJson.results ?? [];
+    const locations: OpenAQLocation[] = (locationsJson.results ?? []).sort(
+      (a: OpenAQLocation, b: OpenAQLocation) => (a.distance ?? Infinity) - (b.distance ?? Infinity),
+    );
 
     if (locations.length === 0) {
       return NextResponse.json({ found: false });
